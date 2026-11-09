@@ -1,16 +1,16 @@
-# FMCG Lakehouse on Databricks Free Edition
+# FMCG Lakehouse on Databricks 
 
 A consumer goods company has just bought a smaller competitor. The parent company's sales data is clean and reporting-ready. The company it acquired keeps its data in messy CSV files: duplicate customers, misspelled cities, dates in several different formats, prices recorded as "unknown" or negative, and orders logged daily instead of monthly. Leadership wants one dashboard showing both businesses together.
 
 This project is how I solved that on Databricks Free Edition. I took the acquired company's raw files through a bronze → silver → gold pipeline, reshaped them to fit the parent company's star schema, merged the two, and built a dashboard on top.
 
-I followed the structure of [this end-to-end Databricks Free Edition project](https://www.youtube.com/watch?v=U6ZUKWdfSLY), then adapted it to run on my own workspace (more on that below).
+I followed the structure of [this end-to-end Databricks project](https://www.youtube.com/watch?v=U6ZUKWdfSLY), then adapted it to run on my own workspace (more on that below).
 
 ![Architecture](docs/project_architecture.png)
 
 ## What I used
 
-Databricks Free Edition on serverless compute, Unity Catalog for governance and storage, Delta Lake tables, PySpark for the transformations, Spark SQL for the loads and checks, and Databricks AI/BI Dashboards for reporting.
+Databricks on serverless compute, Unity Catalog for governance and storage, Delta Lake tables, PySpark for the transformations, Spark SQL for the loads and checks, and Databricks AI/BI Dashboards for reporting.
 
 ## How the data flows
 
@@ -83,7 +83,7 @@ fmcg/
 
 ## What I changed from the original
 
-The course reads its files from the author's own S3 bucket, which I don't have access to, and Free Edition can't connect external cloud storage anyway. So I moved all the raw files into Unity Catalog Volumes and pointed every notebook at those paths instead.
+The course reads its files from the author's own S3 bucket, which I don't have access to, and this Edition can't connect external cloud storage anyway. So I moved all the raw files into Unity Catalog Volumes and pointed every notebook at those paths instead.
 
 I also switched the notebooks to a relative path (`%run ../1_setup/utilities`), so the project works no matter which workspace folder it lives in, and I created the parent's gold tables with explicit column types so the acquired company's data merges in cleanly.
 
